@@ -77,109 +77,62 @@ public class Test3{
 }}
 
 #test4
-/// <summary>
-    /// 使窗口的中的指定控件支持运行时移动
-    /// TODO:运行时缩放
-    /// </summary>
-    public class ControlMoveResize
-    {
-        #region 私有成员
-        bool IsMoving = false;
-        Point pCtrlLastCoordinate = new Point(0,0);
-        Point pCursorOffset = new Point(0, 0);
-        Point pCursorLastCoordinate = new Point(0, 0);
-        private Control ctrl = null;
-        private ScrollableControl Containe = null;
-        #endregion
-        #region 私有方法
-        /// <summary>
-        /// 在鼠标左键按下的状态记录鼠标当前的位置,以及被移动组件的当前位置
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MouseDown(object sender, MouseEventArgs e)
-        {
-            if (Containe == null)
-            {
-                return;
-            }
-            if (e.Button == MouseButtons.Left)
-            {
-                IsMoving = true;
-                pCtrlLastCoordinate.X = ctrl.Left;
-                pCtrlLastCoordinate.Y = ctrl.Top;
-                pCursorLastCoordinate.X = Cursor.Position.X;
-                pCursorLastCoordinate.Y = Cursor.Position.Y;
-            }
-        }
-        private void MouseMove(object sender, MouseEventArgs e)
-        {
-            if (Containe == null)
-            {
-                return;
-            }
-                
-            if (e.Button == MouseButtons.Left)
-            {
-                if (this.IsMoving)
-                {
-                    Point pCursor = new Point(Cursor.Position.X, Cursor.Position.Y);
-                  
-                    pCursorOffset.X = pCursor.X - pCursorLastCoordinate.X;
-               
-                    pCursorOffset.Y = pCursor.Y - pCursorLastCoordinate.Y;
-                    ctrl.Left = pCtrlLastCoordinate.X + pCursorOffset.X;
-                    ctrl.Top = pCtrlLastCoordinate.Y + pCursorOffset.Y;
-                }
 
-            }
-        }
- 
-        private void MouseUp(object sender, MouseEventArgs e)
-        {
-            if (Containe == null)
-            {
-                return;
-            }
-            if (this.IsMoving)
-            {
-                if (pCursorOffset.X == 0 && pCursorOffset.Y == 0)
-                {
-                    return;
-                }
-                if ((pCtrlLastCoordinate.X + pCursorOffset.X + ctrl.Width) > 0)
-                {
-                    ctrl.Left = pCtrlLastCoordinate.X + pCursorOffset.X;
-                }
-                else
-                {
-                    ctrl.Left = 0;
-                }
-                if ((pCtrlLastCoordinate.Y + pCursorOffset.Y + ctrl.Height) > 0)
-                {
-                    ctrl.Top = pCtrlLastCoordinate.Y + pCursorOffset.Y;
-                }
-                else
-                {
-                    ctrl.Top = 0;
-                }
-                pCursorOffset.X = 0;
-                pCursorOffset.Y = 0;
-            }
-        }
-        #endregion
-        #region 构造函数
-        /// <summary>
-        /// 获取被移动控件对象和容器对象
-        /// </summary>
-        /// <param name="c">被设置为可运行时移动的控件</param>
-        /// <param name="parentContain">可移动控件的容器</param>
-        public ControlMoveResize(Control c, ScrollableControl parentContain)
-        {
-            ctrl = c;
-            this.Containe = parentContain;
-            ctrl.MouseDown += new MouseEventHandler(MouseDown);
-            ctrl.MouseMove += new MouseEventHandler(MouseMove);
-            ctrl.MouseUp += new MouseEventHandler(MouseUp);
-        }
-        #endregion
+package github;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+
+public class MoveHelloWorld extends JFrame implements MouseMotionListener{
+	//窗口的宽度和高度
+	final int WINDOW_WIDTH = 500;
+	final int WINDOW_HEIGHT = 500;
+	MyJPanel myPanel;
+	//鼠标任意时刻的坐标值，默认值为屏幕中心
+	int nowX=WINDOW_WIDTH/2,nowY=WINDOW_WIDTH/2;
+	
+	//初始化窗口中的组件
+	public MoveHelloWorld() {
+		myPanel = new MyJPanel();
+		this.add(myPanel);
+		
+		this.addMouseMotionListener(this);
+		this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+	}
+	
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		nowX = arg0.getX();
+		nowY = arg0.getY();
+		repaint();
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	class MyJPanel extends JPanel{
+		@Override
+		public void paint(Graphics arg0) {
+			arg0.setColor(Color.WHITE);
+			arg0.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+			arg0.setColor(Color.BLACK);
+			arg0.drawString("Hello World", nowX, nowY);
+		}
+	}
+	
+	public static void main(String[] args) {
+		MoveHelloWorld moveString = new MoveHelloWorld();
+	}
+}
