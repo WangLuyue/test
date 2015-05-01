@@ -1,0 +1,77 @@
+#Rectangle.java
+
+package in.co.javatutorials;
+
+public class Rectangle {
+	// 两个名为width和height的double型数据域，分别表示矩形的宽和高。默认值为1.
+
+	double width = 1;
+	double height = 1;
+
+	// 创建默认矩形的无参构造方法。
+	public Rectangle() {
+
+	}
+
+	// 一个创建width和height为指定值的矩形的构造方法。
+	public Rectangle(double width, double height) {
+		super();
+		this.width = width;
+		this.height = height;
+	}
+
+	// 一个名为getArea（）的方法，返回这个矩形的面积。
+	double getArea() {
+		return this.width * this.height;
+	}
+
+	// 一个名为getArea（）的方法，返回这个矩形的面积。getPerimeter()的方法，返回这个矩形的周长。
+	double getPerimeter() {
+		return 2 * (this.width + this.height);
+	}
+
+	// 一个矩形的宽为4而高为40，另一个矩形的宽为3.5而高为35.9。显示每个矩形的宽、高、面积和周长。
+	public static void main(String[] args) {
+		Rectangle rectOne = new Rectangle(4, 40);
+		Rectangle rectTwo = new Rectangle(3.5, 35.9);
+
+		System.out.println("矩形rextOne的宽为："+rectOne.width +",高为："+rectOne.height+",面积为："+rectOne.getArea()+",周长为："+rectOne.getPerimeter()+"." +" 计科（高职）13-3 201303014083 王鲁跃");
+		System.out.println("矩形rectTwo的宽为："+rectTwo.width +",高为："+rectTwo.height+",面积为："+rectTwo.getArea()+",周长为："+rectTwo.getPerimeter()+"."+" 计科（高职）13-3 201303014083 王鲁跃");
+	}
+}
+
+
+
+#RectangleTest.java
+
+package in.co.javatutorials;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class RectangleTest {
+	private double width = 1;
+	private double height = 1;
+
+	@Test
+	public void testRectangle() {
+		
+	}
+
+	@Test
+	public void testRectangleDoubleDouble() {
+		this.width = width;
+		this.height = height;
+	}
+
+	@Test
+	public void testMain() {
+		Rectangle rectOne = new Rectangle(4, 40);
+		Rectangle rectTwo = new Rectangle(3.5, 35.9);
+
+		System.out.println("矩形rextOne的宽为："+rectOne.width +",高为："+rectOne.height+",面积为："+rectOne.getArea()+",周长为："+rectOne.getPerimeter()+"." +" 计科（高职）13-3 201303014083 王鲁跃");
+		System.out.println("矩形rectTwo的宽为："+rectTwo.width +",高为："+rectTwo.height+",面积为："+rectTwo.getArea()+",周长为："+rectTwo.getPerimeter()+"."+" 计科（高职）13-3 201303014083 王鲁跃");
+	}
+
+}
